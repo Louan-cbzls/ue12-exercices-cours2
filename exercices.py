@@ -159,7 +159,7 @@ def g(x):
 
 
 def g_vectorized(x):
-    pass  # 👈 Insérez le code ici
+    print(np.where(x>0, np.power(x,2),x))
 
 
 print(g_vectorized(np.array([1, -2, 3, -4, 5])))  # attendu: [ 1 -2  9 -4 25]
@@ -175,7 +175,7 @@ print(g_vectorized(np.array([1, -2, 3, -4, 5])))  # attendu: [ 1 -2  9 -4 25]
 
 # %%
 def select_even(arr):
-    pass  # 👈 Insérez le code ici
+    return(arr[1::2])
 
 
 print(
@@ -190,7 +190,7 @@ print(
 
 # %%
 def replace_negatives(arr):
-    pass  # 👈 Insérez le code ici
+    return(np.where(arr<0,0,arr))
 
 
 print(replace_negatives(np.array([1, -2, 3, -4, 5])))  # attendu: [1 0 3 0 5]
@@ -204,7 +204,8 @@ print(replace_negatives(np.array([1, -2, 3, -4, 5])))  # attendu: [1 0 3 0 5]
 
 # %%
 def get_center(arr):
-    pass  # 👈 Insérez le code ici
+    print(arr)
+    return(arr[2:4:,1:4:])
 
 
 print(get_center(np.arange(1, 26).reshape(5, 5)))  # attendu: [[ 7  8  9]
@@ -219,7 +220,10 @@ print(get_center(np.arange(1, 26).reshape(5, 5)))  # attendu: [[ 7  8  9]
 
 # %%
 def swap_first_rows(arr):
-    pass  # 👈 Insérez le code ici
+    arr2=np.copy(arr)
+    arr[1]=arr2[0]
+    arr[0]=arr2[1]
+    return(arr)
 
 
 print(swap_first_rows(np.array([[1, 2], [3, 4], [5, 6]])))  # attendu: [[3 4]
@@ -237,7 +241,18 @@ print(swap_first_rows(np.array([[1, 2], [3, 4], [5, 6]])))  # attendu: [[3 4]
 
 # %%
 def funny_checkerboard(size):
-    pass  # 👈 Insérez le code ici
+    A=np.zeros((size,size))
+    A[0::2,0::2]=1
+    A[1::2,1::2]=1
+    A[0::2,1::2]=0
+    A[1::2,0::2]=0
+    B=np.indices((size,size))
+    A[0::2,0::2]=B[0,0::2,0::2]+1
+    return(A)
+   
+    
+
+
 
 
 print(funny_checkerboard(5))  # attendu: [[1. 0. 1. 0. 1.]
@@ -258,9 +273,8 @@ print(funny_checkerboard(5))  # attendu: [[1. 0. 1. 0. 1.]
 
 # %%
 def mean(arr):
-    pass  # 👈 Insérez le code ici
-
-
+    S=sum(arr)/(np.shape(arr)[0]*np.shape[1])
+    return(S)
 # %% [markdown]
 # ## Exercices 4.2.	Créer une fonction qui, étant donné un tableau 2D, retourne la somme de ses éléments des colonnes d'indice impair
 #
@@ -269,7 +283,11 @@ def mean(arr):
 
 # %%
 def sum_odd_columns(arr):
-    pass  # 👈 Insérez le code ici
+    T=arr[::,1::2]
+    S=0
+    for i in T:
+        S+=sum(i)
+    return(S)
 
 
 print(sum_odd_columns(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])))  # attendu: 15
@@ -283,7 +301,13 @@ print(sum_odd_columns(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])))  # attendu: 
 
 # %%
 def max_per_line(arr):
-    pass  # 👈 Insérez le code ici
+    Tab=[]
+    for i in range(len(arr[1])):
+        Tab.append(max(arr[i,:]))
+    return(np.array(Tab))
+
+    
+
 
 
 print(max_per_line(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])))  # attendu: [3 6 9]
@@ -296,7 +320,12 @@ print(max_per_line(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])))  # attendu: [3 
 
 # %%
 def min_per_column(arr):
-    pass  # 👈 Insérez le code ici
+    Tab=[]
+    for i in range(len(arr[0])):
+        Tab.append(min(arr[:,i]))
+    return(np.array(Tab))
 
 
 print(min_per_column(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])))  # attendu: [1 2 3]
+
+# %%
